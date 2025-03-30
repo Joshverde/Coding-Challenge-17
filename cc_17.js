@@ -49,3 +49,25 @@ class salesRep {
   const salesRep1 = new salesRep("John"); // creates a new sales rep
   salesRep1.addClient(Customer1); // adds a client
   salesRep1.getClientTotal("Josh"); // uses client name to search their total amount
+  
+  
+//task 3 - VIP customer's total spent with bonus.
+class VIPCustomer extends Customer {
+    // creates an extension of customer class called VIPCustomer
+    constructor(name, email, vipLevel) {
+      // cosntructor with three prameters
+      super(name, email); // uses super to call data from parent class
+      this.viplevel = vipLevel; // assigns value
+    }
+    totalSpent() {
+      // creates a methos
+      const totalSpent = super.totalSpent(); // Call the parent class fucntion
+      const bonus = totalSpent * 0.1; // Calculates bonus (bonus is 10%)
+      return totalSpent + bonus; // Returns total amount
+    }
+  }
+  // test values 3
+  const VIPCustomer1 = new VIPCustomer("Jay", "jay@gmail.com", "Gold"); // Creates a new VIPcustomer
+  VIPCustomer1.addPurchase(500); // adds purchase amount
+  VIPCustomer1.addPurchase(300); // adds purchase amount
+  salesRep1.addClient(VIPCustomer1); // adds vip to salesRep1 clients
