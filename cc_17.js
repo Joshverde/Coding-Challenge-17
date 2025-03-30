@@ -50,7 +50,7 @@ class salesRep {
   salesRep1.addClient(Customer1); // adds a client
   salesRep1.getClientTotal("Josh"); // uses client name to search their total amount
   
-  
+
 //task 3 - VIP customer's total spent with bonus.
 class VIPCustomer extends Customer {
     // creates an extension of customer class called VIPCustomer
@@ -71,3 +71,66 @@ class VIPCustomer extends Customer {
   VIPCustomer1.addPurchase(500); // adds purchase amount
   VIPCustomer1.addPurchase(300); // adds purchase amount
   salesRep1.addClient(VIPCustomer1); // adds vip to salesRep1 clients
+
+  //  Task 4 -Build a Client Report System
+class report {
+    // creates a new class
+    constructor(salesRep) {
+      // creates a constructor with one parameter
+      this.salesRep = salesRep; // assigns value
+    }
+    totalRevenue() {
+      // creates  a method
+      return this.salesRep.clients.reduce(
+        (total, clients) => total + clients.totalSpent(),
+        0
+      ); // uses reduce to find total Rev of all clients
+      console.log(totalRev); // logs result to console
+      return totalRev; //returns totalRev
+    }
+    bigSpenders() {
+      let bigSpender = this.salesRep.clients.filter(
+        (client) => client.totalSpent() > 500
+      ); //  filters cleints to find those who spent more than 500 USD
+      return bigSpender.map(
+        (client) => `Name: ${client.name}, Total: $${client.totalSpent()}`
+      ); // maps the bigSpender clients
+      console.log(BSmap); // logs result to vconsole
+      return BSmap; // returns sales over 500 mapped
+    }
+    namesTotalsArray() {
+      return this.salesRep.clients.map((client) => ({
+        name: client.name,
+        totalSpent: client.totalSpent(),
+      })); // maps an array containing names and total sales
+      console.log(NTArray); // console logs NTArray
+      return NTArray; // returns the mapped vlaues
+    }
+  }
+  // test values 4
+  const salesReport = new report(salesRep1); // creates a new report
+  salesReport.totalRevenue(); // applies method
+  salesReport.bigSpenders(); // applies method
+  salesReport.namesTotalsArray(); // appplies method
+  
+  function printReport(salesRep) {
+    const salesReport = new report(salesRep); // Creats a new report instance for the  salesRep
+    console.log(`Sales Report for Sales Rep: ${salesRep.name}`); // logs title and rep name to console
+    console.log("----------------------------------------"); // dividing line for asthetics
+  
+    const totalRevenue = salesReport.totalRevenue(); // assigns vlaue
+    console.log(`Total Revenue: $${totalRevenue}`); // logs total revenue to the console
+  
+    const bigSpenders = salesReport.bigSpenders(); // assigns vlaue
+    console.log("Big Spenders (Spent over $500):"); // logs bigspenders title to the console
+    bigSpenders.forEach((spender) => console.log(spender)); // logs each big spender to the console individually
+  
+    const namesTotals = salesReport.namesTotalsArray(); // assigns vlaue
+    console.log("Customer Summary (Name and Total Spent):"); // logs title to the console
+    namesTotals.forEach((entry) =>
+      console.log(`Name: ${entry.name}, Total Spent: $${entry.totalSpent}`)
+    ); // logs each name and total to the console seperatly
+  }
+  
+  printReport(salesRep1); // prints rep one  sales report to the console in an organized report
+  
